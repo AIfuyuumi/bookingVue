@@ -52,24 +52,25 @@
           <ul>
             <li>
               <!-- 首页 -->
-              <a href="javascript:void(0);">首页</a>
+              <router-link to="/" v-on:click.native="menuActive($event)">首页</router-link>
             </li>
             <li>
               <!-- 运动场馆预定 -->
-              <a href="javascript:void(0);">运动场馆预定</a>
+              <router-link to="playground" v-on:click.native="menuActive($event)">运动场馆预定</router-link>
             </li>
             <li>
               <!-- 教室使用预定 -->
-              <a href="javascript:void(0);">教室使用预定</a>
+              <router-link to="teacher" v-on:click.native="menuActive($event)">教室使用预定</router-link>
             </li>
             <li>
               <!-- 大型场馆预定 -->
-              <a href="javascript:void(0);">大型场馆预定</a>
+              <router-link to="largeSite" v-on:click.native="menuActive($event)">大型场馆预定</router-link>
             </li>
           </ul>
         </div>
       </div>
     </header>
+
     <router-view/>
   </div>
 </template>
@@ -84,6 +85,16 @@ export default {
     }
   },
   methods: {
+    menuActive(e) {
+      console.log($(e.currentTarget).parent()[0])
+      $(e.currentTargets).css('backgroundColor', 'rgba(255, 255, 255, 0.3)')
+      $(e.currentTarget)
+        .parent()
+        .siblings()
+        .find('a')
+        .css('backgroundColor', 'transparent')
+    },
+
     loginSubmit() {
       var username = this.userName
       var password = this.passWord
@@ -109,9 +120,8 @@ export default {
     clickKeep() {
       this.keepShow = false
     },
-    clickBox(event){
-      console.log(event);
-      
+    clickBox(event) {
+      console.log(event)
     }
   }
 }

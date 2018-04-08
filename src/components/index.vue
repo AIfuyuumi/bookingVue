@@ -100,7 +100,8 @@
             即日起，搜索校园季学生优惠，最低1.1折等你来享
           </span>
           <p class="time">
-            推荐预定:
+            <!-- 推荐预定: -->
+            {{dateStr}}
           </p>
           <ul class="add">
             <li>
@@ -171,7 +172,9 @@ export default {
     return {
       // 中左部订阅箭头初始化
       jiantouxiaShow: true,
-      jiantoushangShow: false
+      jiantoushangShow: false,
+
+      dateStr: ''
     }
   },
   methods: {
@@ -195,7 +198,65 @@ export default {
         })
       this.jiantouxiaShow = true
       this.jiantoushangShow = false
+    },
+
+    getData: function getData() {
+      var dateStr = ''
+      var date = new Date()
+      var dateSeven = new Date(new Date() - -5 * 24 * 60 * 60 * 1000)
+      var mon = date.getMonth() + 1
+      var monSeven = dateSeven.getMonth() + 1
+      var day = date.getDate()
+      var daySeven = dateSeven.getDate()
+      var week = this.weekNumToStr(date.getDay())
+      var weekSeven = this.weekNumToStr(dateSeven.getDay())
+
+      dateStr =
+        mon +
+        '月' +
+        day +
+        '日 星期' +
+        week +
+        ' 至 ' +
+        monSeven +
+        '月' +
+        daySeven +
+        '日 星期' +
+        weekSeven +
+        ' 推荐预定:'
+      // $('.middleRight .time').text(dateStr)
+      this.dateStr = dateStr
+    },
+
+    // weekNumToStr
+    weekNumToStr: function weekNumToStr(week) {
+      switch (week) {
+        case 0:
+          return '日'
+          break
+        case 1:
+          return '一'
+          break
+        case 2:
+          return '二'
+          break
+        case 3:
+          return '三'
+          break
+        case 4:
+          return '四'
+          break
+        case 5:
+          return '五'
+          break
+        case 6:
+          return '六'
+          break
+      }
     }
+  },
+  mounted() {
+    this.getData()
   }
 }
 </script>
@@ -566,3 +627,4 @@ export default {
 }
 </style>
 
+ 
