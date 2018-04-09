@@ -1,9 +1,9 @@
 $(function () {
   // 头部菜单按钮
-  $("header .menu a").on("click", function () {
-    $(this).css("backgroundColor", "rgba(255, 255, 255, 0.3)");
-    $(this).parent().siblings().find("a").css("backgroundColor", "transparent");
-  })
+  // $("header .menu a").on("click", function () {
+  // $(this).css("backgroundColor", "rgba(255, 255, 255, 0.3)");
+  // $(this).parent().siblings().find("a").css("backgroundColor", "transparent");
+  // })
 
   // 中左部搜索
   $(".middleLeft .submit").on("click", function () {
@@ -109,7 +109,7 @@ $(function () {
   //   console.log(jsonData);
 
   //   //提交ajax请求
-    
+
 
 
   // });

@@ -17,8 +17,8 @@
             <p>登录密码</p>
             <input type="password" name="passWord" v-model="passWord" class="idInput">
             <!-- <p>忘记密码</p> -->
-            <button type="submit" class="submit">
-              <p @click="loginSubmit">登录</p>
+            <button type="button" @click="loginSubmit" class="submit">
+              <p>登录</p>
             </button>
 
             <div class="registerSpread">
@@ -85,10 +85,10 @@ export default {
     }
   },
   methods: {
+    // 头部菜单按钮
     menuActive(e) {
-      console.log($(e.currentTarget).parent()[0])
-      $(e.currentTargets).css('backgroundColor', 'rgba(255, 255, 255, 0.3)')
-      $(e.currentTarget)
+      $(e.target).css('backgroundColor', 'rgba(255, 255, 255, 0.3)')
+      $(e.target)
         .parent()
         .siblings()
         .find('a')
@@ -121,7 +121,7 @@ export default {
       this.keepShow = false
     },
     clickBox(event) {
-      console.log(event)
+      // console.log(event)
     }
   }
 }
@@ -139,7 +139,6 @@ export default {
 }
 
 .keep {
-  // display: none;
   position: fixed;
   z-index: 100;
   width: 100%;
@@ -166,12 +165,12 @@ export default {
       border: 1px solid #e0e0e0;
     }
     .register {
-      border-left: 0; // background-color: palegoldenrod;
+      border-left: 0;
     }
     .content {
       float: left;
       margin-top: 20px;
-      padding-left: 34px; // background-color: hotpink;
+      padding-left: 34px;
       .loginContent {
         font-size: 14px;
         font-weight: bold;
@@ -216,7 +215,7 @@ header {
   background-color: #003580;
   .header {
     position: relative;
-    height: 100%; // background-color: red;
+    height: 100%;
     .logo {
       position: absolute;
       top: 12px;
@@ -274,6 +273,9 @@ header {
             border-radius: 3px;
           }
           &:first-of-type a {
+            background-color: rgba(255, 255, 255, 0.3);
+          }
+          .color {
             background-color: rgba(255, 255, 255, 0.3);
           }
         }

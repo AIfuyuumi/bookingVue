@@ -4,8 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
+import $ from 'jquery'
 
 Vue.use(VueResource)
+
+Vue.fn
 
 Vue.config.productionTip = false
 
