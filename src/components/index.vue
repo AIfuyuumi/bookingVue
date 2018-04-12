@@ -125,13 +125,9 @@
 
           </ul>
         </div>
-        <!-- 推荐1 -->
-        <div class="recommendOne">
-          <img class="img" src="../assets/test1.jpg" alt="">
-        </div>
-        <!-- 推荐2 -->
-        <div class="recommendTwo">
-          <img class="img" src="../assets/test2.jpg" alt="">
+        <!-- 推荐 -->
+        <div class="recommend" v-for="(item,index) in recommend" :key="index">
+          <img class="img" :src=item.img alt="">
         </div>
 
       </div>
@@ -142,25 +138,29 @@
       <div class="title">
         <p></p>
       </div>
-      <div class="boxOne">
-        <img src="../assets/test2.jpg" alt="" class="img">
-      </div>
-      <div class="boxTwo">
-        <img src="../assets/test2.jpg" alt="" class="img">
-      </div>
-      <div class="boxThree">
-        <img src="../assets/test2.jpg" alt="" class="img">
+      <div class="box" v-for="(item,index) in playgroundData" :key="index">
+        <img :src=item.img alt="" class="img">
       </div>
     </div>
 
     <div class="classRoom w">
-      <p class="title">不仅仅有场馆...还有更多教室与图书馆等你体验宁静De学习</p>
-      <div class="class">
-        <img class="img" src="../assets/test2.jpg" alt="">
-        <p class="name">教室一</p>
-        <p class="add">深圳</p>
-        <span class="scroe"></span>
-      </div>
+      <p class="title">不仅仅有场馆...还有更多教室与图书馆等你体验宁静的学习</p>
+      <!-- Swiper -->
+      <swiper :options="swiperOption">
+        <swiper-slide v-for="(item,index) in classRoomData" :key="index">
+          <div class="class">
+            <img class="img" :src="item.img" alt="">
+            <p class="name">{{item.name}}</p>
+            <p class="add">深圳</p>
+            <span class="scroe"></span>
+          </div>
+        </swiper-slide>
+
+      </swiper>
+
+      <!-- Add Arrows -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
 
   </div>
@@ -173,14 +173,29 @@ export default {
       // 中左部订阅箭头初始化
       jiantouxiaShow: true,
       jiantoushangShow: false,
-
-      dateStr: ''
+      // 日期数据初始化
+      dateStr: '',
+      // 教室数据初始化
+      classRoomData: '',
+      // 运动场数据初始化
+      playgroundData: '',
+      // 推荐场馆数据初始化
+      recommend: '',
+      // 轮播图初始化
+      swiperOption: {
+        slidesPerView: 4,
+        spaceBetween: 30,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      }
     }
   },
   methods: {
     // 点击箭头下
     iconJiantouxia(event) {
-      console.log(event.target)
+      // console.log(event.target)
       $(event.target)
         .parent()
         .animate({
@@ -253,10 +268,47 @@ export default {
           return '六'
           break
       }
+    },
+    //获取ClassRoom数据
+    getClassRoomData: function getClassRoomData() {
+      this.$http
+        .post(
+          'https://www.easy-mock.com/mock/5acf023200a2457ce2e50639/classRoomData'
+        )
+        .then(response => {
+          this.classRoomData = response.data.data.classRoom
+        })
+    },
+
+    //获取ClassRoom数据
+    getplaygroundData: function getplaygroundData() {
+      this.$http
+        .post(
+          'https://www.easy-mock.com/mock/5acf023200a2457ce2e50639/playgroundData'
+        )
+        .then(response => {
+          this.playgroundData = response.data.data.playgroundData
+          // console.log(this.playgroundData);
+        })
+    },
+
+    //recommend
+    getrecommend: function getrecommend() {
+      this.$http
+        .get(
+          'https://www.easy-mock.com/mock/5acf023200a2457ce2e50639/recommend'
+        )
+        .then(response => {
+          this.recommend = response.data.data.recommend
+          console.log(this.recommend)
+        })
     }
   },
   mounted() {
-    this.getData()
+    this.getData(),
+      this.getClassRoomData(),
+      this.getplaygroundData(),
+      this.getrecommend()
   }
 }
 </script>
@@ -554,8 +606,7 @@ export default {
         }
       }
     }
-    .recommendOne,
-    .recommendTwo {
+    .recommend {
       margin-top: 11px;
       width: 537px;
       height: 270px;
@@ -572,28 +623,27 @@ export default {
 
 .playground {
   margin-top: 10px;
-  .boxOne,
-  .boxTwo,
-  .boxThree {
+  .box {
     float: left;
     width: 358px;
     height: 270px;
     border: 1px solid #febb02;
     border-radius: 3px;
+    margin-right: 10px;
     .img {
       width: 100%;
       height: 100%;
     }
   }
-  .boxOne,
-  .boxTwo {
-    margin-right: 10px;
+  .box:last-of-type {
+    margin-right: 0;
   }
 }
 
 .classRoom {
+  position: relative;
   margin-top: 10px;
-  height: 1000px; // background-color: paleturquoise;
+  //height: 1000px; // background-color: paleturquoise;
   .title {
     margin: 0;
     padding: 16px 8px;
@@ -621,8 +671,18 @@ export default {
       margin-left: 16px;
       color: #838383;
     }
-    // .scroe {
-    // }
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    right: -40px;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+
+  .swiper-button-prev {
+    left: -40px;
   }
 }
 </style>
