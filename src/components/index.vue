@@ -62,7 +62,10 @@
           <i class="iconfont icon-jiantouxia" @click="iconJiantouxia($event)" v-show="jiantouxiaShow"></i>
           <div class="email">
             <input type="email" name="" id="" class="emailInput" placeholder="输入电子邮箱地址">
-            <button class="button">订阅电子报!</button>
+            <!-- <button class="button">订阅电子报!</button> -->
+            <el-button plain @click="emailButton" class="button">
+              订阅电子报!
+            </el-button>
           </div>
         </div>
 
@@ -230,6 +233,14 @@ export default {
         })
       this.jiantouxiaShow = true
       this.jiantoushangShow = false
+    },
+    // 点击订阅邮箱
+    emailButton() {
+      this.$notify({
+        title: '感谢订阅',
+        message: '订阅电子报 成功',
+        type: 'success'
+      })
     },
 
     getData: function getData() {
@@ -696,7 +707,7 @@ export default {
     right: -20px;
     transform: translateY(-50%);
     z-index: 10;
-    background-size:50%;
+    background-size: 50%;
   }
 
   .swiper-button-prev {
