@@ -707,7 +707,8 @@ export default {
     right: -20px;
     transform: translateY(-50%);
     z-index: 10;
-    background-size: 50%;
+    background-size: 40%;
+    border-radius: 50%;
   }
 
   .swiper-button-prev {
