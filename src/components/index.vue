@@ -9,11 +9,22 @@
           </div>
           <form action="" class="content">
             <p class="name">场馆名称或地址：</p>
-            <input type="text" class="nameInput" name="nameInput" placeholder="如：教室">
-            <p class="startTime">预定日期</p>
-            <input type="text" class="startTimeInput" name="startTimeInput">
-            <p class="leaveTime">退定日期</p>
-            <input type="text" class="leaveTimeInput" name="leaveTimeInput">
+            <!-- <input type="text" class="nameInput" name="nameInput" placeholder="如：教室"> -->
+            <el-input class="nameInput" placeholder="如：教室" v-model="name" clearable>
+            </el-input>
+            <!-- 日期 -->
+            <div class="block">
+              <span class="demonstration">预定日期时间：</span>
+              <el-date-picker v-model="startTimeInputValue" type="datetime" placeholder="选择日期时间" class="startTimeInput">
+              </el-date-picker>
+            </div>
+
+            <div class="block">
+              <span class="demonstration">退定日期时间：</span>
+              <el-date-picker v-model="leaveTimeInputValue" type="datetime" placeholder="选择日期时间" class="leaveTimeInput">
+              </el-date-picker>
+            </div>
+
             <!-- 筛选预留 -->
             <input type="text" class="screen">
             <input type="text" class="screen">
@@ -159,8 +170,8 @@
       </swiper>
 
       <!-- Add Arrows -->
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
+      <el-button class="swiper-button-next"></el-button>
+      <el-button class="swiper-button-prev"></el-button>
     </div>
 
   </div>
@@ -189,7 +200,13 @@ export default {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
         }
-      }
+      },
+      // 会场名
+      name: '',
+      // 预定开始日期
+      startTimeInputValue: '',
+      // 预定结束日期
+      leaveTimeInputValue: ''
     }
   },
   methods: {
@@ -358,35 +375,35 @@ export default {
         }
         .name {
           margin-top: 14px;
+          margin-left: 1px;
+          font-weight: bold;
         }
         .nameInput {
-          width: 497px;
-          height: 34px;
-          border-radius: 3px;
-          padding-left: 10px;
+          width: 507px;
+          height: 38px;
           color: #383838;
           font-size: 14px;
+          input {
+            width: 100%;
+            height: 100%;
+          }
         }
-        .startTime,
-        .leaveTime {
-          margin-top: 10px;
+        .block {
+          width: 50%;
+          float: left;
+          .demonstration {
+            display: block;
+            margin: 6px 1px 2px;
+            font-weight: bold;
+          }
+          .startTimeInput,
+          .leaveTimeInput {
+            width: 245px;
+          }
         }
-        .startTimeInput,
-        .leaveTimeInput {
-          width: 245px;
-          height: 32px;
-          border-radius: 3px;
-        }
-        .leaveTime {
-          position: absolute;
-          top: 138px;
-          left: 278px;
-        }
-        .leaveTimeInput {
-          margin-left: 13px;
-        }
+
         .screen {
-          margin-top: 18px;
+          margin-top: 10px;
           margin-right: 12px;
           width: 158px;
           height: 33px;
@@ -676,13 +693,14 @@ export default {
   .swiper-button-prev {
     position: absolute;
     top: 50%;
-    right: -40px;
+    right: -20px;
     transform: translateY(-50%);
     z-index: 10;
+    background-size:50%;
   }
 
   .swiper-button-prev {
-    left: -40px;
+    left: -30px;
   }
 }
 </style>
